@@ -1,0 +1,59 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/component: default-kubecf-tests-sits-cluster-role
+  name: default-tests-sits-cluster-role
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - namespaces
+  verbs:
+  - create
+  - get
+  - delete
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  - pods/log
+  - namespaces
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - pods/portforward
+  verbs:
+  - create
+- apiGroups:
+  - rbac.authorization.k8s.io
+  resources:
+  - clusterrolebindings
+  verbs:
+  - delete
+- apiGroups:
+  - ""
+  resources:
+  - persistentvolumes
+  - persistentvolumeclaims
+  verbs:
+  - get
+  - list
+- apiGroups:
+  - storage.k8s.io
+  resources:
+  - storageclasses
+  verbs:
+  - get
+  - list
+- apiGroups:
+  - batch
+  resources:
+  - jobs
+  verbs:
+  - get
+  - list

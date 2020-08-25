@@ -1,0 +1,35 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+    nginx.ingress.kubernetes.io/proxy-body-size: 64m
+    nginx.ingress.kubernetes.io/secure-backends: "true"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.org/websocket-services: router
+  labels:
+    app.kubernetes.io/component: ingress
+  name: kubecf
+  namespace: default
+spec:
+  rules:
+  - host: '*.kubecf.stl.nsx-dev-pks.mastercard.int'
+    http:
+      paths:
+      - backend:
+          serviceName: router
+          servicePort: 443
+        path: /
+  - host: kubecf.stl.nsx-dev-pks.mastercard.int
+    http:
+      paths:
+      - backend:
+          serviceName: router
+          servicePort: 443
+        path: /
+  tls:
+  - hosts:
+    - '*.kubecf.stl.nsx-dev-pks.mastercard.int'
+    - kubecf.stl.nsx-dev-pks.mastercard.int
+    secretName: kubecf-ingress-tls

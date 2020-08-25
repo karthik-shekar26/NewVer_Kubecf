@@ -1,0 +1,87 @@
+# Labels to add to all resources and selectors.
+commonLabels:
+  app.kubernetes.io/instance: kubecf
+  app.kubernetes.io/managed-by: Tiller
+  app.kubernetes.io/name: kubecf
+  app.kubernetes.io/version: v2.2.3
+  helm.sh/chart: kubecf-v2.2.3
+
+# Each entry in this list results in the creation of
+# one ConfigMap resource (it's a generator of n maps).
+configMapGenerator:
+- name: ops-adapter
+- name: ops-addons
+- name: ops-set-deployment-name
+- name: ops-api
+- name: ops-brain-tests
+- name: ops-sizing
+- name: ops-move-log-cache
+- name: ops-move-auctioneer
+- name: ops-diego-api
+- literals:
+  - ops=
+  name: user-provided-properties
+- name: ops-app-autoscaler
+- literals:
+  - ops=
+  name: ops-eirini-helm
+- name: ops-routing-api
+- name: ops-move-routing-api
+- name: ops-database
+- name: ops-set-opensuse-stemcells
+- name: ops-scheduler
+- name: ops-credhub
+- name: ops-diego-cell
+- name: ops-singleton-blobstore
+- name: ops-log-cache
+- name: ops-releases
+- name: ops-auctioneer
+- name: ops-cc-worker
+- name: ops-doppler
+- name: cf-deployment
+- name: ops-tcp-router
+- name: ops-uaa
+- name: ops-log-api
+- literals:
+  - ops=
+  name: ops-azs
+- name: ops-router
+- name: ops-set-suse-buildpacks
+- name: ops-smoke-tests
+- name: ops-acceptance-tests
+- name: ops-nats
+- name: ops-sync-integration-tests
+
+# List of resource files that kustomize reads, modifies
+# and emits as a YAML string
+resources:
+- default-test-cluster-role-clusterrole.yaml
+- default-tests-brain-cluster-admin-cluster-binding-crb.yaml
+- default-tests-brain-test-cluster-role-cluster-binding-crb.yaml
+- default-tests-sits-cluster-binding-crb.yaml
+- default-tests-sits-cluster-role-clusterrole.yaml
+- kubecf-boshdeployment.yaml
+- kubecf-default-psp-rb.yaml
+- kubecf-default-psp-role.yaml
+- kubecf-default-psp.yaml
+- kubecf-ing.yaml
+- test-role-brain-role.yaml
+- test-role-sits-role.yaml
+- tests-brain-sa.yaml
+- tests-brain-test-role-brain-binding-rb.yaml
+- tests-sits-sa.yaml
+- tests-sits-test-role-sits-binding-rb.yaml
+
+# Each entry in this list results in the creation of
+# one Secret resource (it's a generator of n secrets).
+secretGenerator:
+- name: var-k8s-host-url
+  type: Opaque
+- name: var-k8s-node-ca
+  type: Opaque
+- name: var-k8s-service-token
+  type: Opaque
+- name: var-k8s-service-username
+  type: Opaque
+- name: var-system-domain
+  type: Opaque

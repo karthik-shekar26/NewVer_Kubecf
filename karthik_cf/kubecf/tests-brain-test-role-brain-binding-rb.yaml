@@ -1,0 +1,15 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  labels:
+    app.kubernetes.io/component: kubecf-tests-brain-test-role-brain-binding
+  name: tests-brain-test-role-brain-binding
+  namespace: default
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: test-role-brain
+subjects:
+- kind: ServiceAccount
+  name: tests-brain
+  namespace: default
